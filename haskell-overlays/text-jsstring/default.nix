@@ -43,14 +43,7 @@ self: super: {
     rev = "1008a580f2dd3ebd4931e7d8cb36d1347a1e9dc6";
     sha256 = "1zdd7qjv9k6332h4c6frjjfavknzzffw4ayv8q4f2zh9w774hzli";
   }) {}) self.text;
-  conduit-extra = haskellLib.overrideCabal super.conduit-extra (drv: {
-    src = "${fetchFromGitHub {
-      owner = "luigy";
-      repo = "conduit";
-      rev = "aeb20e4eb7f7bfc07ec401c82821cbb04018b571";
-      sha256 = "10kz2m2yxyhk46xdglj7wdn5ba2swqzhyznxasj0jvnjcnv3jriw";
-    }}/conduit-extra";
-  });
+  conduit-extra = haskellLib.appendPatch super.conduit-extra ./conduit-extra.patch;
   double-conversion = haskellLib.overrideCabal super.double-conversion (drv: {
     src = fetchFromGitHub {
       owner = "obsidiansystems";
