@@ -37,12 +37,7 @@ self: super: {
       sha256 = "18dd2ydva3hnsfyrzmi3y3r41g2l4r0kfijaan85y6rc507k6x5c";
     };
   });
-  hashable = haskellLib.addBuildDepend (self.callCabal2nix "hashable" (fetchFromGitHub {
-    owner = "obsidiansystems";
-    repo = "hashable";
-    rev = "1008a580f2dd3ebd4931e7d8cb36d1347a1e9dc6";
-    sha256 = "1zdd7qjv9k6332h4c6frjjfavknzzffw4ayv8q4f2zh9w774hzli";
-  }) {}) self.text;
+  hashable = haskellLib.appendPatch super.hashable ./hashable.patch;
   conduit-extra = haskellLib.appendPatch super.conduit-extra ./conduit-extra.patch;
   double-conversion = haskellLib.overrideCabal super.double-conversion (drv: {
     src = fetchFromGitHub {
